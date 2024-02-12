@@ -30,11 +30,11 @@
 	Una mejor forma de trabajar con eventos es agregando un listener.
 	Un listener nos permitira vigilar cuando se ejecute un evento sin tener que ensuciar el código HTML.
 */
-const boton1 = document.getElementById('boton1');
-const primeraCaja = document.querySelector('.caja');
-boton1.addEventListener('click', () => {
-  primeraCaja.classList.toggle('activa');
-});
+// const boton1 = document.getElementById('boton1');
+// const primeraCaja = document.querySelector('.caja');
+// boton1.addEventListener('click', () => {
+//   primeraCaja.classList.toggle('activa');
+// });
 
 /*
 	📌 Agregando el evento a multiples elementos
@@ -66,3 +66,85 @@ boton1.addEventListener('click', () => {
 // 		console.log(`Haz hecho click en ${e.target.innerText}`);
 // 	});
 // });
+
+/*
+	📌 Propagación de eventos
+	Nota importante:
+	Cuando agregamos un evento a un elemento, todos los elementos que esten dentro del que recibio el evento
+	tambien recibiran el mismo evento.
+
+	Es decir que si le aplicamos un evento a un contenedor padre, todos los hijos tendran tambien el evento.
+*/
+// const contenedor = document.getElementById('contenedor1');
+// contenedor.addEventListener('click', (e) => {
+//   console.log('Hiciste click en el contenedor');
+// });
+
+// primeraCaja.addEventListener('click', (e) => {
+//   // Podemos evitar la propagación:
+//   e.stopPropagation();
+
+//   console.log('Hiciste click en la caja1');
+// });
+
+/*
+	📌 	Cuando agregamos un evento a un elemento ese evento se propaga a los elementos hijo.
+*/
+/*
+	📌 Bubbling (false, por defecto)
+	En bubbling el evento del elemento hijo reacciona primero y despues el evento del elemento padre.
+	
+	📌 Capturing (true)
+	En capturing el elemento padre reacciona primero y despues el elemento hijo.
+*/
+// document.querySelector('.contenedor').addEventListener(
+//   'click',
+//   () => {
+//     console.log('Click en el contenedor');
+//   },
+//   false // Solo es necesario ponerlo en el elemento padre.
+// );
+
+// document.querySelector('.caja').addEventListener('click', () => {
+//   console.log('Click en la caja');
+// });
+
+/*
+	📌 Capturing
+	En capturing el elemento padre reacciona primero y despues el elemento hijo.
+*/
+// document.querySelector('.contenedor').addEventListener(
+//   'click',
+//   () => {
+//     console.log('Click en el contenedor');
+//   },
+//   true
+// );
+
+// document.querySelector('.caja').addEventListener('click', () => {
+//   console.log('Click en la caja');
+// });
+
+/*
+	📌 Eliminar eventos de un elemento
+*/
+
+const boton1 = document.getElementById('boton1');
+const boton2 = document.getElementById('boton2');
+const primeraCaja = document.querySelector('.caja');
+
+const toggleClase = () => {
+  primeraCaja.classList.toggle('activa');
+};
+
+// Click boton 1
+boton1.addEventListener('click', () => {
+  // Agregamos el evento
+  primeraCaja.addEventListener('click', toggleClase);
+});
+
+// Click boton 2
+boton2.addEventListener('click', () => {
+  // Eliminamos el evento
+  primeraCaja.removeEventListener('click', toggleClase);
+});

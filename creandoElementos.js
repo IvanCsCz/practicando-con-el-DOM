@@ -42,3 +42,16 @@ const agregarCaja = () => {
   // .replaceWith() - Nos permite remplazar el elemento por otro
   // document.querySelector('#contenedor1 .caja').replaceWith(nuevaCaja);
 };
+
+/*
+	📌 Eliminar elementos del DOM
+*/
+
+const eliminarCaja = () => {
+  const cajaAEliminar = document.querySelector('#contenedor1 .caja');
+
+  if (cajaAEliminar) {
+    const padre = cajaAEliminar.parentElement;
+    padre.removeChild(cajaAEliminar);
+  }
+};
